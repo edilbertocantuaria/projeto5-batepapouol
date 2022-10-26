@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    
+  }
+  
+  body {
+    width: 100%;
+    height: 100vh;
+    font-family: "Roboto";
+    font-style: normal;
+  }
+
+  ion-icon{
+    font-size: 45px;
+    color: black;
+    
+    position: absolute;
+    right: 22px;
+  }
+
+  img{
+    width: 75px;
+    height: 53px;
+
+    position: absolute;
+    left: 22px;
+  }
+  /*header*/
+  header{
+    width: 100%;
+    height: 80px;
+    background-color:  #FFFFFF;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EBEDEF
+  }
+
+    /*Footer*/
+    footer{
+    width: 100vw;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-top: 1px solid #EBEDEF;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+input{
+
+    width: 93%;
+    height: 54px;
+    font-style: italic;
+    border: none;
+    position: absolute;
+    left: 22px;
+
+}
+
+footer ion-icon{
+    font-size: 26px;
+    right: 22px;
+}
