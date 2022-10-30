@@ -1,19 +1,14 @@
 let mensagens =[];
 let nomeUsuario="";
-const rolarMensagensAutomaticamente = document.querySelector(".caixa-mensagem");
+const rolarMensagensAutomaticamente = document.querySelector("main");
 rolarMensagensAutomaticamente.scrollIntoView();
 
-
 nomeUser ();
-// pegarDados();
-// entrarSala();
-
-
 
 function nomeUser(){
     nomeUsuario = prompt ("Qual seu lindo nome, chuchu?");
     entrarSala();
-    pegarDados();
+    pegarDados(); //Início para renderizar mensagens
     
 }    
 
@@ -22,24 +17,16 @@ const user = {
     name: nomeUsuario
 }
    const promessaUsuario= axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", user);
-   promessaUsuario.then(entrouUsuario);
-   promessaUsuario.catch(erroUsuario)
-
+   //promessaUsuario.then(entrouUsuario); //Função que só vai mostrar o console
+   promessaUsuario.catch(erroUsuario); //Função que só vai mostrar o console
 }
 
 function manterConexao(){
-    // console.log("Mantendo a conexão!")
     const user = {
         name: nomeUsuario
     }
-       const promessaConexao= axios.post("https://mock-api.driven.com.br/api/v6/uol/status", user);
-//        promessaConexao.then(entrouConexao);
-//        promessaConexao.catch(erroConexao)
+       axios.post("https://mock-api.driven.com.br/api/v6/uol/status", user);
  }
-
-function entrouUsuario(status){
-    console.log(status.status + "," + status.statusText);
-}
 
 function erroUsuario(statusErro){
     alert("Esse nome já está logado em nosso sistema! Digite um outro nome ")
@@ -49,41 +36,37 @@ nomeUser();
 
 
 function pegarDados(){
-    // console.log("pegando os dados")
-    const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    promessa.then(renderizarMensagens);
-    promessa.catch(dadosError);
+    const promessaDados = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    promessaDados.then(renderizarMensagens);
+    promessaDados.catch(dadosError);
 }
 
 
 function renderizarMensagens(dadosColetados){
-    mensagens = dadosColetados.data;
-
+    mensagens = dadosColetados.data
     const chatInicial = document.querySelector("main")
     chatInicial.innerHTML="";
-
 for (let i=0; i<mensagens.length; i++){
     let mensagem_dados = mensagens[i]
-    if (mensagem_dados.text==="entra na sala..." ||mensagem_dados.text==="sai da sala..." ){
+    if (mensagem_dados.type==="status"){
         chatInicial.innerHTML+=`
         <div  class="caixa-mensagem entrou-saiu">
         <div class="horario">(${mensagem_dados.time})</div>
         <div class="mensagem"> <span>${mensagem_dados.from} </span>${mensagem_dados.text}</div>
-    </div>`
-        } else if(mensagem_dados.to==="Todos"){
-            chatInicial.innerHTML+`
+        </div>`
+    } else if(mensagem_dados.type==="message"){
+            chatInicial.innerHTML+=`
             <div  class="caixa-mensagem mensagemPublica">
             <div class="horario">(${mensagem_dados.time})</div>
             <div class="mensagem"> <span>${mensagem_dados.from} </span>para <span>${mensagem_dados.to}:</span> ${mensagem_dados.text}</div>
         </div>`
-        } else if  (mensagem_dados.to!="Todos"){
+        } else if  ((mensagem_dados.to===nomeUsuario || mensagem_dados.from===nomeUsuario) && mensagem_dados.type==="private_message"){
             chatInicial.innerHTML+=`
             <div  class="caixa-mensagem mensagemReservada">
             <div class="horario">(${mensagem_dados.time})</div>
             <div class="mensagem"> <span>${mensagem_dados.from} </span>reservadamente para <span>${mensagem_dados.to}:</span> ${mensagem_dados.text}</div>
             </div>`
         } 
-
 }
 setTimeout(pegarDados, 3000);
 setTimeout(manterConexao, 5000);
@@ -94,9 +77,24 @@ function dadosError(erro){
 }
 
 function enviarMensagem(){
-    console.log ("Funcionando o botão de enviar mensagem");
+    const mensagemDigitada = document.querySelector(".caixaDigitarMensagem").value;
+    document.querySelector(".caixaDigitarMensagem").value=""; //limpando o campo logo após enviar mensagem
+    const novaMensagem={
+            from: nomeUsuario,
+            to: "Todos",
+           // to: nomeUsuario,
+            text: mensagemDigitada,
+            type: "message", // ou "private_message" para o bônus
+               };
+console.log(novaMensagem);
+
+    const promessaEnvio = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem)
+    promessaEnvio.then(pegarDados);
+
+    
 }
 
 function participantes(){
     console.log("Funcionando o botão de participantes");
 }
+
