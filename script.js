@@ -78,6 +78,12 @@ function dadosError(erro){
 
 function enviarMensagem(){
     const mensagemDigitada = document.querySelector(".caixaDigitarMensagem").value;
+    console.log(mensagemDigitada);
+
+    if(mensagemDigitada==""){
+        alert("não pode ter mensagem vazia")
+        return
+    }
     document.querySelector(".caixaDigitarMensagem").value=""; //limpando o campo logo após enviar mensagem
     const novaMensagem={
             from: nomeUsuario,
@@ -90,11 +96,15 @@ console.log(novaMensagem);
 
     const promessaEnvio = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem)
     promessaEnvio.then(pegarDados);
-
-    
+    promessaEnvio.catch(deuErroMensagem)
 }
 
 function participantes(){
     console.log("Funcionando o botão de participantes");
+}
+
+function deuErroMensagem(status){
+ console.log(status);
+ nomeUser();
 }
 
