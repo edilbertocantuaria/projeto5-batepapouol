@@ -44,21 +44,22 @@
   /*main*/
 main{
   height: auto;
+  padding-bottom: 200px;
 }
+
 .caixa-mensagem{
 width: 100vw;
 height: 40px;
 
 position: relative;
 top: 100px;
-left:0px;
- gap: 5px 10px; 
+left:0px; 
+gap: 5px 10px; 
 margin-top: 10px;
 
 display: flex;
 align-items: center;
 justify-content: flex-start;
-
 
 border: 1px solid #d8d7d7;
 border-radius: 2px;
@@ -100,7 +101,6 @@ color: #AAAAAA;
 
     /*Footer*/
   footer{
-    position: fixed;
     width: 100vw;
     height: 80px;
     display: flex;
@@ -109,6 +109,7 @@ color: #AAAAAA;
 
     position: fixed;
     bottom: 0;
+   
     left: 0;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     z-index: 1;
@@ -126,5 +127,5 @@ input{
 
 footer ion-icon{
     font-size: 26px;
-    right: 22px;
+    margin-right: 22px;
 }

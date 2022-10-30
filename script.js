@@ -1,5 +1,8 @@
 
 let mensagens =[]
+const rolarMensagensAutomaticamente = document.querySelector("main");
+rolarMensagensAutomaticamente.scrollIntoView()
+
 pegarDados();
 function pegarDados(){
     const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
@@ -11,36 +14,34 @@ function pegarDados(){
 
 function renderizarMensagens(dadosColetados){
     mensagens = dadosColetados.data;
-    console.log(mensagens)
 
     const chatInicial = document.querySelector("main")
-    console.log (typeof(chatInicial));
-    // chatInicial.innerHTML="";
+    chatInicial.innerHTML="";
 
 for (let i=0; i<mensagens.length; i++){
     let mensagem_dados = mensagens[i]
     if (mensagem_dados.text==="entra na sala..." ||mensagem_dados.text==="sai da sala..." ){
-        chatInicial.innerHTML=`
+        chatInicial.innerHTML+=`
         <div  class="caixa-mensagem entrou-saiu">
         <div class="horario">(${mensagem_dados.time})</div>
         <div class="mensagem"> <span>${mensagem_dados.from} </span>${mensagem_dados.text}</div>
     </div>`
         } else if(mensagem_dados.to==="Todos"){
-            chatInicial.innerHTML=`
+            chatInicial.innerHTML+`
             <div  class="caixa-mensagem mensagemPublica">
             <div class="horario">(${mensagem_dados.time})</div>
             <div class="mensagem"> <span>${mensagem_dados.from} </span>para <span>${mensagem_dados.to}:</span> ${mensagem_dados.text}</div>
         </div>`
         } else if  (mensagem_dados.to!="Todos"){
-            chatInicial.innerHTML=`
+            chatInicial.innerHTML+=`
             <div  class="caixa-mensagem mensagemReservada">
             <div class="horario">(${mensagem_dados.time})</div>
             <div class="mensagem"> <span>${mensagem_dados.from} </span>reservadamente para <span>${mensagem_dados.to}:</span> ${mensagem_dados.text}</div>
             </div>`
         } 
-    
 
 }
+setTimeout(pegarDados, 3000)
 }
 
 
