@@ -21,7 +21,7 @@
 
  <header>
 <img class="logo" src="imagens/logo 1.png">
-    <ion-icon name="people" onclick="participantes()"></ion-icon>
+    <ion-icon name="people" onclick="participantes()" data-test="open-participants"></ion-icon>
  </header>
 
  <main>
@@ -29,8 +29,8 @@
 
  <footer>
 <!--Cria uma "máscara", aquele texto que ao clicar no campo some-->
-<input type="text" class="caixaDigitarMensagem" placeholder="Escreva aqui" />
-<ion-icon name="paper-plane-outline" onclick="enviarMensagem()"></ion-icon> 
+<input type="text" class="caixaDigitarMensagem" placeholder="Escreva aqui" data-test="input-message" />
+<ion-icon name="paper-plane-outline" onclick="enviarMensagem()" data-test="send-message"></ion-icon> 
  </footer>  
 
 
