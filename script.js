@@ -3,13 +3,11 @@ let nomeUsuario="";
 const rolarMensagensAutomaticamente = document.querySelector("main");
 rolarMensagensAutomaticamente.scrollIntoView();
 
-nomeUser ();
+nomeUser();
 
 function nomeUser(){
     nomeUsuario = prompt ("Qual seu lindo nome, chuchu?");
     entrarSala();
-    pegarDados(); //Início para renderizar mensagens
-    
 }    
 
 function entrarSala(){
@@ -17,7 +15,7 @@ const user = {
     name: nomeUsuario
 }
    const promessaUsuario= axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", user);
-   //promessaUsuario.then(entrouUsuario); //Função que só vai mostrar o console
+    promessaUsuario.then(pegarDados); //Função que só vai mostrar o console
    promessaUsuario.catch(erroUsuario); //Função que só vai mostrar o console
 }
 
